@@ -344,18 +344,18 @@ class OsmMaps:
                     or self.o_osm_data.force_processing is True:
                 self.log_tile_info(tile["x"], tile["y"], tile_count)
                 timings_tile = Timings()
-                cmd = ['phyghtmap']
+                cmd = ['pyhgtmap']
                 cmd.append('-a ' + f'{tile["left"]}' + ':' + f'{tile["bottom"]}' +
-                           ':' + f'{tile["right"]}' + ':' + f'{tile["top"]}')
+                            ':' + f'{tile["right"]}' + ':' + f'{tile["top"]}')
                 cmd.extend(['-o', f'{out_file_elevation}', '-s 10', '-c 100,50', elevation_source,
-                            '--jobs=8', '--viewfinder-mask=1', '--start-node-id=20000000000',
+                            '--jobs=8', '--sources=srtm1', '--start-node-id=20000000000',
                             '--max-nodes-per-tile=0', '--start-way-id=2000000000', '--write-timestamp',
                             '--no-zero-contour', '--hgtdir=' + hgt_path])
-                cmd.append('--earthexplorer-user=' + username)
-                cmd.append('--earthexplorer-password=' + password)
+                cmd.append('--srtm-user=' + username)
+                cmd.append('--srtm-user=' + password)
 
                 run_subprocess_and_log_output(
-                    cmd, f'! Error in phyghtmap with tile: {tile["x"]},{tile["y"]}. Win_macOS/elevation')
+                    cmd, f'! Error in pyhgtmap with tile: {tile["x"]},{tile["y"]}. Win_macOS/elevation')
                 self.log_tile_debug(tile["x"], tile["y"], tile_count, timings_tile.stop_and_return())
 
             tile_count += 1
